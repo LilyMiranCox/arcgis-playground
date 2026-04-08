@@ -1,0 +1,34 @@
+<arcgis-expand slot="top-right">
+    <div>
+        <button (click)="htmlListActive = !htmlListActive">Toggle HTML Table</button>
+        <button (click)="calciteListActive = !calciteListActive">Toggle Calcite Table</button>
+        <table *ngIf="htmlListActive">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Title</th>
+            </tr>
+            <tr *ngFor="let item of listItems">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.title}}</td>
+            </tr>
+        </table>
+        <calcite-table *ngIf="calciteListActive" caption="Simple table">
+            <calcite-table-row slot="table-header">
+                <calcite-table-header heading="ID" description="ID"></calcite-table-header>
+                <calcite-table-header heading="Name" description="Name"></calcite-table-header>
+                <calcite-table-header heading="Description" description="Description"></calcite-table-header>
+                <calcite-table-header heading="Title" description="Title" alignment="end"></calcite-table-header>
+            </calcite-table-row>
+            <calcite-table-row *ngFor="let item of listItems">
+                <calcite-table-cell>{{item.id}}</calcite-table-cell>
+                <calcite-table-cell>{{item.name}}</calcite-table-cell>
+                <calcite-table-cell>{{item.description}}</calcite-table-cell>
+                <calcite-table-cell alignment="end">{{item.title}}</calcite-table-cell>
+            </calcite-table-row>
+        </calcite-table>
+    </div>
+</arcgis-expand>
