@@ -1,0 +1,224 @@
+<div style="width: 475px;background-color: white;overflow-y: auto;">
+  <button (click)="htmlListActive = !htmlListActive">Toggle HTML Table</button>
+  <button (click)="calciteListActive = !calciteListActive">Toggle Calcite Table</button>
+  <button (click)="onAddElementChunk()">Add Elements</button>
+  <button (click)="onRemoveElementChunk()">Remove Elements</button>
+  <div *ngIf="htmlListActive">
+  <button style="width: 100%">&nbsp;
+    Layer visibility</button>
+  <button>&nbsp;
+    Elocs</button>
+
+  <ng-container>
+    <div>
+      <div ngbDropdown style="width:100%" id="withinInput">
+        <button type="button" style="width:100%"
+          ngbDropdownToggle>
+          {{'Select a boundary source'}}
+        </button>
+        <div style="width:100%" aria-labelledby="sourceButton" ngbDropdownMenu>
+          <a *ngFor="let source of sources">{{source}}</a>
+        </div>
+      </div>
+
+      <hr />
+
+      <ng-container>
+        <div>
+          <button>Redraw
+          </button>
+          <button>Clear</button>
+        </div>
+      </ng-container>
+    </div>
+
+    <div>
+
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Node Name
+            </th>
+            <th scope="col">Count</th>
+            <th scope="col">Color</th>
+            <th scope="col">Display</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let nodeItem of nodeItems">
+            <tr>
+              <td>{{nodeItem.nodeName}}</td>
+              <td>{{nodeItem.count}}</td>
+              <td>
+                <div style="width: 15px;height: 15px;" [style.background-color]="nodeItem.color"></div>
+              </td>
+              <td style="text-align: center;">
+                <input type="checkbox" [(ngModel)]="nodeItem.includeInList" style="margin: 5px;">
+              </td>
+            </tr>
+
+          </ng-container>
+        </tbody>
+      </table>
+
+      <div>
+        <div
+          style="margin-top: 15px; margin-bottom: 10px;">
+          <button
+            [disabled]="true">Batch
+            Update
+            Router HSI
+          </button>
+        </div>
+
+        <div style="margin-bottom: 5px; margin-top: 5px;">
+          <button>
+            <span>To top</span>
+          </button>
+          <button>
+            <span>Unsort</span>
+          </button>
+          <button>
+            <span>Select All</span>
+          </button>
+          <button>
+            <span>Unselect All</span>
+          </button>
+          <button>
+            <span>Add</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Address Id</th>
+              <th>Address</th>
+              <th>Unit</th>
+              <th>Node Name</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let bldg of filteredBldgItems">
+              <tr>
+                <td>{{bldg.id}}</td>
+                <td>{{bldg.address}}</td>
+                <td>{{bldg.unit}}</td>
+                <td>{{bldg.nodeName}}</td>
+                <td><button>goto</button></td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<div *ngIf="calciteListActive">
+  <calcite-button style="width: 100%">&nbsp;
+    Layer visibility</calcite-button>
+  <calcite-button>&nbsp;
+    Elocs</calcite-button>
+
+  <ng-container>
+    <div>
+      <div ngbDropdown style="width:100%" id="withinInput">
+        <calcite-button type="button" style="width:100%"
+          ngbDropdownToggle>
+          {{'Select a boundary source'}}
+        </calcite-button>
+        <div style="width:100%" aria-labelledby="sourceButton" ngbDropdownMenu>
+          <a *ngFor="let source of sources">{{source}}</a>
+        </div>
+      </div>
+
+      <hr />
+
+      <ng-container>
+        <div>
+          <calcite-button>Redraw
+          </calcite-button>
+          <calcite-button>Clear</calcite-button>
+          <p>{{nodeItems.length}} Nodes</p>
+          <p>{{bldgItems.length}} Buildings</p>
+        </div>
+      </ng-container>
+    </div>
+
+    <div>
+      <calcite-table>
+          <calcite-table-row>
+            <calcite-table-header heading="Node Name" description="Node Name"></calcite-table-header>
+            <calcite-table-header heading="Count" description="Count"></calcite-table-header>
+            <calcite-table-header heading="Color" description="Color"></calcite-table-header>
+            <calcite-table-header heading="Display" description="Display"></calcite-table-header>
+          </calcite-table-row>
+          <ng-container *ngFor="let nodeItem of nodeItems">
+            <calcite-table-row>
+              <calcite-table-cell>{{nodeItem.nodeName}}</calcite-table-cell>
+              <calcite-table-cell>{{nodeItem.count}}</calcite-table-cell>
+              <calcite-table-cell>
+                <div style="width: 15px;height: 15px;" [style.background-color]="nodeItem.color"></div>
+              </calcite-table-cell>
+              <calcite-table-cell style="text-align: center;">
+                <calcite-checkbox [(ngModel)]="nodeItem.includeInList" style="margin: 5px;"></calcite-checkbox>
+              </calcite-table-cell>
+            </calcite-table-row>
+
+          </ng-container>
+      </calcite-table>
+
+      <div>
+        <div
+          style="margin-top: 15px; margin-bottom: 10px;">
+          <calcite-button
+            [disabled]="true">Batch
+            Update
+            Router HSI
+          </calcite-button>
+        </div>
+
+        <div style="margin-bottom: 5px; margin-top: 5px;">
+          <calcite-button>
+            <span>To top</span>
+          </calcite-button>
+          <calcite-button>
+            <span>Unsort</span>
+          </calcite-button>
+          <calcite-button>
+            <span>Select All</span>
+          </calcite-button>
+          <calcite-button>
+            <span>Unselect All</span>
+          </calcite-button>
+          <calcite-button>
+            <span>Add</span>
+          </calcite-button>
+        </div>
+      </div>
+      <div>
+        <calcite-table>
+            <calcite-table-row>
+              <calcite-table-header heading="Address Id" description="Address Id"></calcite-table-header>
+              <calcite-table-header heading="Address" description="Address"></calcite-table-header>
+              <calcite-table-header heading="Unit" description="Unit"></calcite-table-header>
+              <calcite-table-header heading="Node Name" description="Node Name"></calcite-table-header>
+              <calcite-table-header heading="Detail" description="Detail"></calcite-table-header>
+            </calcite-table-row>
+            <ng-container *ngFor="let bldg of filteredBldgItems">
+              <calcite-table-row>
+                <calcite-table-cell>{{bldg.id}}</calcite-table-cell>
+                <calcite-table-cell>{{bldg.address}}</calcite-table-cell>
+                <calcite-table-cell>{{bldg.unit}}</calcite-table-cell>
+                <calcite-table-cell>{{bldg.nodeName}}</calcite-table-cell>
+                <calcite-table-cell><calcite-button (click)="onGoTo(bldg)">goto</calcite-button></calcite-table-cell>
+              </calcite-table-row>
+            </ng-container>
+        </calcite-table>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</div>

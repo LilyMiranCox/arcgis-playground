@@ -31,28 +31,32 @@ import type WebMap from "@arcgis/core/WebMap";
 import type { ArcgisMap } from "@arcgis/map-components/components/arcgis-map";
 import { config } from "../../../../config";
 import { ListCompare } from "./list-compare/list-compare.component";
+import { BuildingTableCompareComponent } from "./building-table-compare/building-table-compare.component";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.html",
   styleUrl: "./app.css",
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [ListCompare]
+  imports: [ListCompare, BuildingTableCompareComponent, CommonModule]
 })
 export class App implements OnInit {
   title = "map-components-angular-sample";
   navHeading = "";
   navDescription = "";
   itemId = config.itemId;
+  viewElement: ArcgisMap | undefined;
+  ready = false;
   ngOnInit(): void {
     console.log("OnInit");
   }
 
   arcgisViewReadyChange(event: CustomEvent): void {
-    const viewElement = event.target as ArcgisMap;
+    this.viewElement = event.target as ArcgisMap;
 
     // Use metadata from the Web Map to populate the header
-    const map = viewElement.map as WebMap;
+    const map = this.viewElement.map as WebMap;
     const portalItem = map.portalItem;
     const title = portalItem?.title ? portalItem.title : "A web map";
     const description = portalItem?.description ? portalItem.description : "ArcGIS Maps SDK for JavaScript template";
@@ -87,6 +91,7 @@ export class App implements OnInit {
     });
 
     // Add a graphic to demonstrate custom visualizations beyond Web Map content
-    viewElement.graphics.add(pointGraphic);
+    this.viewElement.graphics.add(pointGraphic);
+    this.ready = true;
   }
 }

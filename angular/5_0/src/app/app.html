@@ -12,7 +12,17 @@
   </arcgis-map>
   -->
   <arcgis-map [attr.item-id]="itemId" (arcgisViewReadyChange)="arcgisViewReadyChange($event)">
-    <arcgis-layer-list slot="top-right"></arcgis-layer-list>
+    <arcgis-expand slot="top-right">
+      <arcgis-layer-list></arcgis-layer-list>
+    </arcgis-expand>
+    <arcgis-expand slot="top-right">
+      <arcgis-legend></arcgis-legend>
+    </arcgis-expand>
     <!--<list-compare></list-compare>-->
+    <!--<ng-template *ngIf="ready">-->
+      <arcgis-expand slot="top-right" *ngIf="ready">
+        <building-table-compare style="height: 100%;display: flex;" [view]="viewElement"></building-table-compare>
+      </arcgis-expand>
+    <!--</ng-template>-->
   </arcgis-map>
 
