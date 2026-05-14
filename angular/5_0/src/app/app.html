@@ -21,7 +21,7 @@
     <!--<list-compare></list-compare>-->
     <!--<ng-template *ngIf="ready">-->
       <arcgis-expand slot="top-right" *ngIf="ready" [expanded]="true">
-        <building-table-compare style="height: 100%;display: flex;" [view]="viewElement"></building-table-compare>
+        <building-table-compare style="height: 100%;display: flex;" [view]="viewElement" [start]="start"></building-table-compare>
       </arcgis-expand>
     <!--</ng-template>-->
   </arcgis-map>

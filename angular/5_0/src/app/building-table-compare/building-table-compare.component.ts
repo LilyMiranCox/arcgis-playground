@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnDestroy, OnInit } from "@angular/core";
+import { afterNextRender, Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormsModule } from '@angular/forms';
 import Extent from "@arcgis/core/geometry/Extent";
 import Point from "@arcgis/core/geometry/Point";
@@ -23,6 +23,7 @@ export class BuildingTableCompareComponent implements OnInit, OnDestroy {
   htmlListActive = false;
   calciteListActive = false;
   @Input() view: ArcgisMap | undefined;
+  @Input() start: number = 0;
   graphicsLayer: GraphicsLayer;
 
   constructor() {
@@ -30,7 +31,9 @@ export class BuildingTableCompareComponent implements OnInit, OnDestroy {
       title: "Building Graphics",
       listMode: "show"
     });
-    
+    afterNextRender(() => {
+      console.log("Performance - Widget 'afterNextRender' at " + ((performance.now() - this.start) / 1000).toFixed(2) + " s");
+    });
   }
 
   ngOnInit(): void {
@@ -39,6 +42,7 @@ export class BuildingTableCompareComponent implements OnInit, OnDestroy {
       this.onAddElementChunk();
     }
   }
+
   onAddElementChunk() {
     //for(let i = 0; i < 1; i++) {
     const extent = new Extent({

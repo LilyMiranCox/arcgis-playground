@@ -48,15 +48,41 @@ export class App implements OnInit {
   itemId = config.itemId;
   viewElement: ArcgisMap | undefined;
   ready = false;
+  start = 0;
+  constructor() {
+    this.start = performance.now();
+    console.log("Performance - App constructor started");
+  }
+
   ngOnInit(): void {
     console.log("OnInit");
   }
 
   arcgisViewReadyChange(event: CustomEvent): void {
     this.viewElement = event.target as ArcgisMap;
+    const viewHandle = this.viewElement.view.watch("updating", (updating) => {
+      if (!updating) {
+        console.log("Performance - View done at " + ((performance.now() - this.start) / 1000).toFixed(2) + " s");
+        viewHandle.remove();
+      }
+    });
 
     // Use metadata from the Web Map to populate the header
+    
     const map = this.viewElement.map as WebMap;
+    map.when(() => {
+        console.log("Performance - Map when at " + ((performance.now() - this.start) / 1000).toFixed(2) + " s");
+        
+        map.allLayers.forEach(layer => {
+        const handle = layer.watch("loaded", (loaded) => {
+          if (loaded) {
+            console.log(`Performance ---- layer ${layer.title} loaded at: ${((performance.now() - this.start) / 1000).toFixed(2)} s`);
+
+            handle.remove(); // Stop watching after initial load
+          }
+        });
+        })
+      });
     const portalItem = map.portalItem;
     const title = portalItem?.title ? portalItem.title : "A web map";
     const description = portalItem?.description ? portalItem.description : "ArcGIS Maps SDK for JavaScript template";
