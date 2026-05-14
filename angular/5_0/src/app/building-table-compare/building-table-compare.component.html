@@ -1,33 +1,33 @@
 <div style="width: 475px;background-color: white;overflow-y: auto;">
-  <button (click)="htmlListActive = !htmlListActive">Toggle HTML Table</button>
-  <button (click)="calciteListActive = !calciteListActive">Toggle Calcite Table</button>
+  <button (click)="htmlListActive = !htmlListActive; calciteListActive = false;">Toggle HTML Table</button>
+  <button (click)="calciteListActive = !calciteListActive; htmlListActive = false;">Toggle Calcite Table</button>
   <button (click)="onAddElementChunk()">Add Elements</button>
   <button (click)="onRemoveElementChunk()">Remove Elements</button>
   <div *ngIf="htmlListActive">
-  <button style="width: 100%">&nbsp;
+  <button style="width: 100%" disabled="true">&nbsp;
     Layer visibility</button>
-  <button>&nbsp;
+  <button disabled="true">&nbsp;
     Elocs</button>
 
   <ng-container>
     <div>
       <div ngbDropdown style="width:100%" id="withinInput">
-        <button type="button" style="width:100%"
+        <button type="button" style="width:100%" disabled="true"
           ngbDropdownToggle>
           {{'Select a boundary source'}}
         </button>
-        <div style="width:100%" aria-labelledby="sourceButton" ngbDropdownMenu>
+        <!--<div style="width:100%" aria-labelledby="sourceButton" ngbDropdownMenu>
           <a *ngFor="let source of sources">{{source}}</a>
-        </div>
+        </div>-->
       </div>
 
       <hr />
 
       <ng-container>
         <div>
-          <button>Redraw
+          <button disabled>Redraw
           </button>
-          <button>Clear</button>
+          <button disabled>Clear</button>
         </div>
       </ng-container>
     </div>
@@ -53,7 +53,7 @@
                 <div style="width: 15px;height: 15px;" [style.background-color]="nodeItem.color"></div>
               </td>
               <td style="text-align: center;">
-                <input type="checkbox" [(ngModel)]="nodeItem.includeInList" style="margin: 5px;">
+                <input type="checkbox" disabled="true" [(ngModel)]="nodeItem.includeInList" style="margin: 5px;">
               </td>
             </tr>
 
@@ -64,27 +64,27 @@
       <div>
         <div
           style="margin-top: 15px; margin-bottom: 10px;">
-          <button
-            [disabled]="true">Batch
+          <button disabled>
+            Batch
             Update
             Router HSI
           </button>
         </div>
 
         <div style="margin-bottom: 5px; margin-top: 5px;">
-          <button>
+          <button disabled>
             <span>To top</span>
           </button>
-          <button>
+          <button disabled>
             <span>Unsort</span>
           </button>
-          <button>
+          <button disabled>
             <span>Select All</span>
           </button>
-          <button>
+          <button disabled>
             <span>Unselect All</span>
           </button>
-          <button>
+          <button disabled>
             <span>Add</span>
           </button>
         </div>
@@ -107,7 +107,7 @@
                 <td>{{bldg.address}}</td>
                 <td>{{bldg.unit}}</td>
                 <td>{{bldg.nodeName}}</td>
-                <td><button>goto</button></td>
+                <td><button (click)="onGoTo(bldg)">goto</button></td>
               </tr>
             </ng-container>
           </tbody>
@@ -117,30 +117,30 @@
   </ng-container>
 </div>
 <div *ngIf="calciteListActive">
-  <calcite-button style="width: 100%">&nbsp;
+  <calcite-button style="width: 100%" disabled="true">&nbsp;
     Layer visibility</calcite-button>
-  <calcite-button>&nbsp;
+  <calcite-button disabled="true">&nbsp;
     Elocs</calcite-button>
 
   <ng-container>
     <div>
       <div ngbDropdown style="width:100%" id="withinInput">
-        <calcite-button type="button" style="width:100%"
+        <calcite-button type="button" style="width:100%" disabled="true"
           ngbDropdownToggle>
           {{'Select a boundary source'}}
         </calcite-button>
-        <div style="width:100%" aria-labelledby="sourceButton" ngbDropdownMenu>
+        <!--<div style="width:100%" aria-labelledby="sourceButton" ngbDropdownMenu>
           <a *ngFor="let source of sources">{{source}}</a>
-        </div>
+        </div>-->
       </div>
 
       <hr />
 
       <ng-container>
         <div>
-          <calcite-button>Redraw
+          <calcite-button disabled="true">Redraw
           </calcite-button>
-          <calcite-button>Clear</calcite-button>
+          <calcite-button disabled="true">Clear</calcite-button>
           <p>{{nodeItems.length}} Nodes</p>
           <p>{{bldgItems.length}} Buildings</p>
         </div>
@@ -163,7 +163,7 @@
                 <div style="width: 15px;height: 15px;" [style.background-color]="nodeItem.color"></div>
               </calcite-table-cell>
               <calcite-table-cell style="text-align: center;">
-                <calcite-checkbox [(ngModel)]="nodeItem.includeInList" style="margin: 5px;"></calcite-checkbox>
+                <calcite-checkbox disabled="true" [(ngModel)]="nodeItem.includeInList" style="margin: 5px;"></calcite-checkbox>
               </calcite-table-cell>
             </calcite-table-row>
 
@@ -181,19 +181,19 @@
         </div>
 
         <div style="margin-bottom: 5px; margin-top: 5px;">
-          <calcite-button>
+          <calcite-button disabled="true">
             <span>To top</span>
           </calcite-button>
-          <calcite-button>
+          <calcite-button disabled="true">
             <span>Unsort</span>
           </calcite-button>
-          <calcite-button>
+          <calcite-button disabled="true">
             <span>Select All</span>
           </calcite-button>
-          <calcite-button>
+          <calcite-button disabled="true">
             <span>Unselect All</span>
           </calcite-button>
-          <calcite-button>
+          <calcite-button disabled="true">
             <span>Add</span>
           </calcite-button>
         </div>

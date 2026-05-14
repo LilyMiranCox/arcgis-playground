@@ -35,7 +35,9 @@ export class BuildingTableCompareComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.view?.map?.add(this.graphicsLayer);
-    this.onAddElementChunk();
+    for(let i = 0; i < 20; i++) {
+      this.onAddElementChunk();
+    }
   }
   onAddElementChunk() {
     //for(let i = 0; i < 1; i++) {
@@ -65,9 +67,9 @@ export class BuildingTableCompareComponent implements OnInit, OnDestroy {
         this.graphicsLayer.add(newPoint);
 
         this.bldgItems.push({
-          id: `Item ${(this.nodeItems.length*60)+j+1}`, 
+          id: `Item ${((this.nodeItems.length-1)*60)+j+1}`, 
           address: `1292 KIFER RD 94086`, 
-          unit: `${(this.nodeItems.length*60)+j+1}`, 
+          unit: `${((this.nodeItems.length-1)*60)+j+1}`, 
           nodeName: nodeName, 
           graphic: newPoint
         });
